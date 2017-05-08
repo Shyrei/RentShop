@@ -2,15 +2,15 @@ package by.shyrei.rentshop.utils;
 
 public enum OperationsForMenu {
 	
-	CLIENT, ACCOUNT, EXIT, LOAD_FROM_FILE, SAVE;
+	INIT, RENT, EXIT, LOAD_FROM_FILE, SAVE;
 	
 	public static OperationsForMenu menuOperation (String s) throws MyExceptions {
 		
 		switch (s) {
 		case "1":
-			return CLIENT;
+			return INIT;
 		case "2":
-			return ACCOUNT;
+			return RENT;
 		case "3":
 			return LOAD_FROM_FILE;
 		case "4":

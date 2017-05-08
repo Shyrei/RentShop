@@ -9,7 +9,6 @@ import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import by.shyrei.rentshop.entities.Category;
-import by.shyrei.rentshop.entities.Shop;
 import by.shyrei.rentshop.entities.SportEquipment;
 
 public class SAXRentShopDataParser extends DefaultHandler {

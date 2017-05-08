@@ -3,7 +3,7 @@ package by.shyrei.rentshop.entities;
 import java.util.Map;
 
 public class Shop {
-	
+
 	private Map<SportEquipment, Integer> good;
 
 	public Map<SportEquipment, Integer> getGood() {
@@ -12,6 +12,15 @@ public class Shop {
 
 	public void setGood(Map<SportEquipment, Integer> good) {
 		this.good = good;
+	}
+
+	public Shop(Map<SportEquipment, Integer> good) {
+		super();
+		this.good = good;
+	}
+
+	public Shop() {
+		super();
 	}
 
 	@Override
@@ -38,21 +47,4 @@ public class Shop {
 			return false;
 		return true;
 	}
-
-	@Override
-	public String toString() {
-		return "" + good + "\n";
-	}
-
-	public Shop(Map<SportEquipment, Integer> good) {
-		super();
-		this.good = good;
-	}
-
-	public Shop() {
-		super();
-	}
-	
-	
-
 }

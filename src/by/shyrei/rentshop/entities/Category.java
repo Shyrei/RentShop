@@ -2,10 +2,6 @@ package by.shyrei.rentshop.entities;
 
 public class Category {
 	private String name;
-	
-	
-
-	
 
 	public Category(String name) {
 		super();
@@ -14,6 +10,14 @@ public class Category {
 
 	public Category() {
 		super();
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@Override
@@ -45,13 +49,4 @@ public class Category {
 			return false;
 		return true;
 	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 }

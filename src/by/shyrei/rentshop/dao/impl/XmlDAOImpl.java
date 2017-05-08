@@ -8,6 +8,7 @@ import by.shyrei.rentshop.entities.RentUnit;
 import by.shyrei.rentshop.entities.Shop;
 import by.shyrei.rentshop.entities.SportEquipment;
 import by.shyrei.rentshop.parser.RentShopSAXBuilder;
+import by.shyrei.rentshop.utils.Messages;
 
 public class XmlDAOImpl implements IRentShopDAO {
 
@@ -22,12 +23,13 @@ public class XmlDAOImpl implements IRentShopDAO {
 	@Override
 	public void showAllGoods(Shop goods) {
 		Map<SportEquipment, Integer> allGoods = goods.getGood();
-		for (Map.Entry entry : allGoods.entrySet()) {
+		for (Map.Entry<SportEquipment, Integer> entry : allGoods.entrySet()) {
 			System.out.print(entry.getKey());
 			System.out.println("   Кол-во в магазине: " + entry.getValue() + " шт.");
 		}
 	}
-
+	
+	// TODO доделать проверку на нулевой массив!
 	public void showRentGoods(RentUnit units) {
 		SportEquipment[] inRentGoods = units.getUnits();
 		for (int i = 0; i < inRentGoods.length; i++) {
@@ -36,8 +38,7 @@ public class XmlDAOImpl implements IRentShopDAO {
 			}
 		}
 	}
-	// TODO доделать проверку на нулевой массив!
-
+	
 	@Override
 	public void addGoodToRent(String goodName, RentUnit units, Shop goods) {
 		SportEquipment good;
@@ -60,7 +61,7 @@ public class XmlDAOImpl implements IRentShopDAO {
 				}
 			} else {
 				if (i == (inRentGoods.length - 1)) {
-					System.out.println("Вы можете взять в прокат только 3-и товара.");
+					System.out.println(Messages.LIMIT_GOODS);
 					break;
 				}
 			}

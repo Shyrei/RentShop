@@ -3,7 +3,7 @@ package by.shyrei.rentshop.entities;
 import java.util.Arrays;
 
 public class RentUnit {
-	
+
 	private SportEquipment[] units;
 
 	public SportEquipment[] getUnits() {
@@ -49,7 +49,4 @@ public class RentUnit {
 	public String toString() {
 		return "RentUnit [units=" + Arrays.toString(units) + "]";
 	}
-	
-	
-
 }
