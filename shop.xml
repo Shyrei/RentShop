@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="touristvoucher.xsl"?>
+<tourist_voucher xsi:noNamespaceSchemaLocation="touristvoucher.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<sportEquipment>
+		<category>Снег</category>
+		<title>клюшка</title>
+		<price>10</price>
+		<inRent>false</inRent>
+		<sum>5</sum>		
+	</sportEquipment>
+	<sportEquipment>
+		<category>Снег</category>
+		<title>шайба</title>
+		<price>1</price>
+		<inRent>false</inRent>
+		<sum>3</sum>		
+	</sportEquipment>
+	<sportEquipment>
+		<category>Снег</category>
+		<title>Лыжи</title>
+		<price>41</price>
+		<inRent>false</inRent>
+		<sum>3</sum>		
+	</sportEquipment>
+	<sportEquipment>
+		<category>Дождь</category>
+		<title>Котик</title>
+		<price>41</price>
+		<inRent>true</inRent>
+		<sum>3</sum>		
+	</sportEquipment>
+	<sportEquipment>
+		<category>Дождь</category>
+		<title>Зонт</title>
+		<price>41</price>
+		<inRent>false</inRent>
+		<sum>3</sum>		
+	</sportEquipment>
+</tourist_voucher>
