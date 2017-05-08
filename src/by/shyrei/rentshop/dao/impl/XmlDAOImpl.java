@@ -1,7 +1,12 @@
 package by.shyrei.rentshop.dao.impl;
 
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
 
 import by.shyrei.rentshop.dao.IRentShopDAO;
 import by.shyrei.rentshop.entities.RentUnit;
@@ -14,15 +19,17 @@ public class XmlDAOImpl implements IRentShopDAO {
 
 	@Override
 	public Shop readGoods() {
-		Shop goodsList = new Shop();
-		RentShopSAXBuilder init = new RentShopSAXBuilder();
-		goodsList.setGood(init.buildGoods("shop.xml"));
-		return goodsList;
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public void showAllGoods(Shop goods) {
 		Map<SportEquipment, Integer> allGoods = goods.getGood();
+		if (allGoods.isEmpty()) {
+			System.out.println(Messages.GOODS_EMPTY);
+			return;
+		}
 		for (Map.Entry<SportEquipment, Integer> entry : allGoods.entrySet()) {
 			System.out.print(entry.getKey());
 			System.out.println("   Кол-во в магазине: " + entry.getValue() + " шт.");
@@ -91,48 +98,22 @@ public class XmlDAOImpl implements IRentShopDAO {
 		}
 	}
 
+	public Shop initShop() throws SAXException, IOException, ParserConfigurationException {
+		Shop goodsList = new Shop();
+		RentShopSAXBuilder init = new RentShopSAXBuilder();
+		goodsList.setGood(init.buildGoods("shop.xml"));
+		return goodsList;
+	}
+
 	public void findGood(String goodName, Shop goods) {
-		SportEquipment good = null;
+		//SportEquipment good = null;
 		Map<SportEquipment, Integer> inShopGoods = goods.getGood();
 		for (Map.Entry<SportEquipment, Integer> entry : inShopGoods.entrySet()) {
 			if (entry.getKey().getTitle().equals(goodName)) {
-			System.out.print(entry.getKey());
-			System.out.println(";      Кол-во в магазине: " + entry.getValue() + " шт.");
+				System.out.print(entry.getKey());
+				System.out.println(";      Кол-во в магазине: " + entry.getValue() + " шт.");
 			}
-		}		
+		}
 	}
-
-	// public void addGoodToRent(SportEquipment good, RentUnit units) {
-	// SportEquipment[] inRentGoods = units.getUnits();
-	// for (int i = 0; i < inRentGoods.length; i++) {
-	// if (inRentGoods[i] == null) {
-	// inRentGoods[i] = good;
-	// break;
-	// } else {
-	// if (i == (inRentGoods.length - 1)) {
-	// System.out.println("Вы можете взять в прокат только 3-и товара.");
-	// break;
-	// }
-	// }
-	// }
-	// }
-	//
-	// public void removeGoodFromShop(String goodName, Map<SportEquipment,
-	// Integer> inShopGoods) {
-	// Iterator<Map.Entry<SportEquipment, Integer>> iter =
-	// inShopGoods.entrySet().iterator();
-	// while (iter.hasNext()) {
-	// SportEquipment good = iter.next().getKey();
-	// if (good.getTitle().equals(goodName)) {
-	// int newValue = (inShopGoods.get(good));
-	// if (newValue <= 1) {
-	// iter.remove();
-	// } else {
-	// inShopGoods.put(good, newValue - 1);
-	// }
-	// return;
-	// }
-	// }
-	// }
 
 }

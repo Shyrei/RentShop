@@ -1,9 +1,15 @@
 package by.shyrei.rentshop.entities;
 
+import java.io.Serializable;
 import java.util.Map;
 
-public class Shop {
+public class Shop implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private Map<SportEquipment, Integer> good;
 
 	public Map<SportEquipment, Integer> getGood() {

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet type="text/xsl" href="touristvoucher.xsl"?>
-<tourist_voucher xsi:noNamespaceSchemaLocation="touristvoucher.xsd"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<shop>
 	<sportEquipment>
 		<category>Снег</category>
 		<title>клюшка</title>
@@ -37,4 +35,4 @@
 		<inRent>false</inRent>
 		<sum>3</sum>		
 	</sportEquipment>
-</tourist_voucher>
+</shop>

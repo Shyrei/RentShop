@@ -9,6 +9,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
 import by.shyrei.rentshop.dao.impl.XmlDAOImpl;
 import by.shyrei.rentshop.entities.RentUnit;
 import by.shyrei.rentshop.entities.Shop;
@@ -22,8 +27,8 @@ public class Operator {
 
 	private boolean runProgram;
 	private boolean rentWork;
+	private boolean initShop;
 	private BufferedReader reader;
-
 	XmlDAOImpl operator = new XmlDAOImpl();
 
 	RentUnit units = new RentUnit();
@@ -33,7 +38,7 @@ public class Operator {
 	public Operator() {
 		runProgram = false;
 		rentWork = false;
-
+		initShop = false;
 	}
 
 	/**
@@ -60,15 +65,23 @@ public class Operator {
 	 * 
 	 */
 	protected void menuWork() {
-		menuList();
+		if (initShop) {
+			menuList();
+		} else {
+			initList();
+		}
 
 		try {
 			String userInput = reader.readLine();
 			OperationsForMenu operationsMenu = OperationsForMenu.menuOperation(userInput);
 			switch (operationsMenu) {
 			case INIT:
-				goods = operator.readGoods();
+				goods = operator.initShop();
 				units.setUnits(inRentGoods);
+				initShop = true;
+				rentWork = true;
+				while (rentWork)
+					rentWork();
 				break;
 			case RENT:
 				rentWork = true;
@@ -79,7 +92,6 @@ public class Operator {
 				System.out.print(Messages.ENTER_FILE_NAME);
 				File fileNameLoad = new File(reader.readLine());
 				readConfigurationFromFile(fileNameLoad);
-				// clientWork = true;
 				break;
 			case SAVE:
 				System.out.print(Messages.ENTER_FILE_NAME);
@@ -88,18 +100,24 @@ public class Operator {
 				break;
 			case EXIT:
 				runProgram = false;
-				// clientWork = false;
 				rentWork = false;
 			}
 		} catch (MyExceptions e) {
 			System.out.println(e.getMessage());
 		} catch (FileNotFoundException e) {
 			System.out.println(Messages.FILE_NOT_FOUND);
+			System.out.println(e.getMessage());
 		} catch (ClassNotFoundException e) {
 			System.out.println(e.getMessage());
 		} catch (IOException e) {
-			e.printStackTrace();
 			System.out.println(Messages.IO_EXCEPTION);
+			System.out.println(e.getMessage());
+		} catch (SAXException e) {
+			System.out.println(Messages.SAX_EXCEPTION);
+			System.out.println(e.getMessage());
+		} catch (ParserConfigurationException e) {			
+			System.out.println(Messages.PARSER_CONFIG_EXCEPTION);
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -108,7 +126,8 @@ public class Operator {
 	 */
 	private void writeConfigurationToFile(File file) throws FileNotFoundException, IOException {
 		ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(file));
-		// stream.writeObject(ClientWorker.listClient);
+		stream.writeObject(goods);
+		stream.writeObject(units);
 		stream.close();
 		System.out.println(Messages.FILE_SAVE);
 
@@ -120,7 +139,8 @@ public class Operator {
 	private void readConfigurationFromFile(File file)
 			throws FileNotFoundException, IOException, ClassNotFoundException {
 		ObjectInputStream stream = new ObjectInputStream(new FileInputStream(file));
-		// ClientWorker.listClient = (List<Client>) stream.readObject();
+		goods = (Shop) stream.readObject();
+		units = (RentUnit) stream.readObject();
 		stream.close();
 		System.out.println(Messages.FILE_LOAD);
 
@@ -167,6 +187,20 @@ public class Operator {
 			e.printStackTrace();
 			System.out.println(Messages.IO_EXCEPTION);
 		}
+//		} catch (NullPointerException ex) {
+//			System.out.println(Messages.GOODS_EMPTY);
+//		}
+	}
+
+	/**
+	 * Instructions for displaying for main menu before initializing the shop.
+	 * 
+	 */
+	protected void initList() {
+		StringBuilder builder = new StringBuilder();
+		builder.append(Messages.SPACE).append(Messages.INIT_SHOP).append(Messages.LOAD).append(Messages.SAVE)
+				.append(Messages.EXIT_FROM_PROGRAM).append(Messages.SPACE);
+		System.out.println(builder.toString());
 	}
 
 	/**
@@ -175,7 +209,7 @@ public class Operator {
 	 */
 	protected void menuList() {
 		StringBuilder builder = new StringBuilder();
-		builder.append(Messages.SPACE).append(Messages.INIT_SHOP).append(Messages.SHOW_GOODS_IN_RENT)
+		builder.append(Messages.SPACE).append(Messages.SHOW_GOODS_IN_RENT)
 				.append(Messages.LOAD).append(Messages.SAVE).append(Messages.EXIT_FROM_PROGRAM).append(Messages.SPACE);
 		System.out.println(builder.toString());
 	}

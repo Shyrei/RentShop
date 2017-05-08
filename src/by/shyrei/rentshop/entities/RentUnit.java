@@ -1,9 +1,15 @@
 package by.shyrei.rentshop.entities;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class RentUnit {
+public class RentUnit implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private SportEquipment[] units;
 
 	public SportEquipment[] getUnits() {

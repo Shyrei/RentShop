@@ -16,10 +16,11 @@ import by.shyrei.rentshop.entities.SportEquipment;
 public class RentShopSAXBuilder {
 
 	public Map<SportEquipment, Integer> goods;
-	public Map<SportEquipment, Integer> buildGoods(String fileName) {
+
+	public Map<SportEquipment, Integer> buildGoods(String fileName)
+			throws SAXException, IOException, ParserConfigurationException {
 
 		try {
-
 			XMLReader xmlReader = XMLReaderFactory.createXMLReader();
 			SAXRentShopDataParser rentShopHandler = new SAXRentShopDataParser();
 			xmlReader.setContentHandler((ContentHandler) rentShopHandler);
@@ -31,15 +32,12 @@ public class RentShopSAXBuilder {
 				goods = rentShopHandler.getRentGoods();
 			}
 		} catch (SAXException e) {
-			System.err.println("Problem of parser");
-
+			throw e;
 		} catch (IOException e) {
-			System.err.println("Problem of reading file");
-
+			throw e;
 		} catch (ParserConfigurationException e) {
-			System.err.println("Error configuration parser: " + e);
+			throw e;
 		}
-
 		return goods;
 	}
 
