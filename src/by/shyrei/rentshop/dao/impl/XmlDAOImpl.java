@@ -28,7 +28,7 @@ public class XmlDAOImpl implements IRentShopDAO {
 			System.out.println("   Кол-во в магазине: " + entry.getValue() + " шт.");
 		}
 	}
-	
+
 	// TODO доделать проверку на нулевой массив!
 	public void showRentGoods(RentUnit units) {
 		SportEquipment[] inRentGoods = units.getUnits();
@@ -38,7 +38,7 @@ public class XmlDAOImpl implements IRentShopDAO {
 			}
 		}
 	}
-	
+
 	@Override
 	public void addGoodToRent(String goodName, RentUnit units, Shop goods) {
 		SportEquipment good;
@@ -90,19 +90,17 @@ public class XmlDAOImpl implements IRentShopDAO {
 			}
 		}
 	}
-	// public SportEquipment takeGood(String goodName, Map<SportEquipment,
-	// Integer> goods) {
-	// SportEquipment good = null;
-	// Iterator<Map.Entry<SportEquipment, Integer>> iter =
-	// goods.entrySet().iterator();
-	// while (iter.hasNext()) {
-	// good = iter.next().getKey();
-	// if (good.getTitle().equals(goodName)) {
-	// break;
-	// }
-	// }
-	// return good;
-	// }
+
+	public void findGood(String goodName, Shop goods) {
+		SportEquipment good = null;
+		Map<SportEquipment, Integer> inShopGoods = goods.getGood();
+		for (Map.Entry<SportEquipment, Integer> entry : inShopGoods.entrySet()) {
+			if (entry.getKey().getTitle().equals(goodName)) {
+			System.out.print(entry.getKey());
+			System.out.println(";      Кол-во в магазине: " + entry.getValue() + " шт.");
+			}
+		}		
+	}
 
 	// public void addGoodToRent(SportEquipment good, RentUnit units) {
 	// SportEquipment[] inRentGoods = units.getUnits();

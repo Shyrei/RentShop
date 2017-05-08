@@ -141,7 +141,6 @@ public class Operator {
 				System.out.println("Введите имя товара:");
 				String goodName = reader.readLine();
 				operator.addGoodToRent(goodName, units, goods);
-				;
 				break;
 			case RETURN_GOOD:
 				System.out.println("Введите имя товара:");
@@ -149,7 +148,9 @@ public class Operator {
 				operator.returnGoodToShop(goodNameReturn, units, goods);
 				break;
 			case FIND_GOOD:
-				// operator.find();
+				System.out.println("Введите имя товара:");
+				String goodNameFind = reader.readLine();
+				operator.findGood(goodNameFind, goods);
 				break;
 			case MY_GOOD:
 				operator.showRentGoods(units);
