@@ -12,8 +12,8 @@ import by.shyrei.rentshop.dao.IRentShopDAO;
 import by.shyrei.rentshop.entities.RentUnit;
 import by.shyrei.rentshop.entities.Shop;
 import by.shyrei.rentshop.entities.SportEquipment;
-import by.shyrei.rentshop.parser.RentShopSAXBuilder;
 import by.shyrei.rentshop.utils.Messages;
+import by.shyrei.rentshop.utils.parser.RentShopSAXBuilder;
 
 public class XmlDAOImpl implements IRentShopDAO {
 

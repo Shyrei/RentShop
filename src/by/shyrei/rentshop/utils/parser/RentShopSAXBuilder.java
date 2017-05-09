@@ -1,4 +1,4 @@
-package by.shyrei.rentshop.parser;
+package by.shyrei.rentshop.utils.parser;
 
 import java.io.File;
 import java.io.IOException;

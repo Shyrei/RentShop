@@ -52,6 +52,7 @@ public class Operator {
 				menuWork();
 			}
 		} while (runProgram);
+		
 		try {
 			reader.close();
 		} catch (IOException e) {
@@ -147,7 +148,7 @@ public class Operator {
 	}
 
 	/**
-	 * Rent Menu. You can rent,return or find good and display a list of goods.
+	 * Rent Menu. You can rent,return or find good and show a list of goods.
 	 * 
 	 * @see XmlDAOImpl
 	 */
@@ -204,7 +205,7 @@ public class Operator {
 	}
 
 	/**
-	 * Instructions for displaying for main menu.
+	 * Instructions for displaying for main menu after initializing the shop.
 	 * 
 	 */
 	protected void menuList() {
