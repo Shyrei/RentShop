@@ -12,21 +12,38 @@ import by.shyrei.rentshop.dao.IRentShopDAO;
 import by.shyrei.rentshop.entities.RentUnit;
 import by.shyrei.rentshop.entities.Shop;
 import by.shyrei.rentshop.entities.SportEquipment;
+import by.shyrei.rentshop.utils.DAOException;
 import by.shyrei.rentshop.utils.Messages;
 import by.shyrei.rentshop.utils.parser.RentShopSAXBuilder;
 
+/**
+ * The implementation class of the DAO interface. In this class, basic methods
+ * for working with DAO and the main logic of the program are implemented.
+ * 
+ * @author Uladzimir
+ *
+ */
 public class XmlDAOImpl implements IRentShopDAO {
 
 	private SportEquipment[] inRentGoods;
 	private Map<SportEquipment, Integer> inShopGoods;
 
 	@Override
-	public Shop readGoods() {
-		// TODO Auto-generated method stub
-		return null;
+	public Shop initShop() throws DAOException {
+		Shop goodsList = new Shop();
+		try {
+			RentShopSAXBuilder init = new RentShopSAXBuilder();
+			goodsList.setGood(init.buildGoods("shop.xml"));
+		} catch (SAXException e) {
+			throw new DAOException(Messages.SAX_EXCEPTION + e.getMessage());
+		} catch (IOException e) {
+			throw new DAOException(Messages.PARSER_IO_EXCEPTION + e.getMessage());
+		} catch (ParserConfigurationException e) {
+			throw new DAOException(Messages.PARSER_CONFIG_EXCEPTION + e.getMessage());
+		}
+		return goodsList;
 	}
-	
-	@Override
+
 	public void showAllGoods(Shop goods) {
 		inShopGoods = goods.getGood();
 		if (inShopGoods.isEmpty()) {
@@ -39,7 +56,19 @@ public class XmlDAOImpl implements IRentShopDAO {
 		}
 	}
 
-	@Override
+	public void showRentGoods(RentUnit units) {
+		inRentGoods = units.getUnits();
+		boolean isEmpty = false;
+		for (int i = 0; i < inRentGoods.length; i++) {
+			if (inRentGoods[i] != null) {
+				System.out.println(inRentGoods[i]);
+				isEmpty = true;
+			}
+		}
+		if (isEmpty == false)
+			System.out.println(Messages.RENT_EMPTY);
+	}
+
 	public void addGoodToRent(String goodName, RentUnit units, Shop goods) {
 		if (checkGoodinShop(goodName, goods)) {
 			SportEquipment good;
@@ -70,7 +99,6 @@ public class XmlDAOImpl implements IRentShopDAO {
 		}
 	}
 
-	@Override
 	public void returnGoodToShop(String goodName, RentUnit units, Shop goods) {
 		inShopGoods = goods.getGood();
 		inRentGoods = units.getUnits();
@@ -91,7 +119,17 @@ public class XmlDAOImpl implements IRentShopDAO {
 		}
 	}
 
-	public boolean checkGoodinShop(String goodName, Shop goods) {
+	public void findGood(String goodName, Shop goods) {
+		inShopGoods = goods.getGood();
+		for (Map.Entry<SportEquipment, Integer> entry : inShopGoods.entrySet()) {
+			if (entry.getKey().getTitle().equals(goodName)) {
+				System.out.print(entry.getKey());
+				System.out.println(";      Кол-во в магазине: " + entry.getValue() + " шт.");
+			}
+		}
+	}
+
+	private boolean checkGoodinShop(String goodName, Shop goods) {
 		inShopGoods = goods.getGood();
 		boolean check = false;
 		for (Map.Entry<SportEquipment, Integer> entry : inShopGoods.entrySet()) {
@@ -105,7 +143,7 @@ public class XmlDAOImpl implements IRentShopDAO {
 		return check;
 	}
 
-	public boolean checkGoodinRent(String goodName, RentUnit units) {
+	private boolean checkGoodinRent(String goodName, RentUnit units) {
 		boolean check = false;
 		inRentGoods = units.getUnits();
 		for (int i = 0; i < inRentGoods.length; i++) {
@@ -119,24 +157,7 @@ public class XmlDAOImpl implements IRentShopDAO {
 		return check;
 	}
 
-	public Shop initShop() throws SAXException, IOException, ParserConfigurationException {
-		Shop goodsList = new Shop();
-		RentShopSAXBuilder init = new RentShopSAXBuilder();
-		goodsList.setGood(init.buildGoods("shop.xml"));
-		return goodsList;
-	}
-
-	public void findGood(String goodName, Shop goods) {
-		inShopGoods = goods.getGood();
-		for (Map.Entry<SportEquipment, Integer> entry : inShopGoods.entrySet()) {
-			if (entry.getKey().getTitle().equals(goodName)) {
-				System.out.print(entry.getKey());
-				System.out.println(";      Кол-во в магазине: " + entry.getValue() + " шт.");
-			}
-		}
-	}
-
-	public int findValueGood(String goodName, Shop goods) {
+	private int findValueGood(String goodName, Shop goods) {
 		inShopGoods = goods.getGood();
 		int newValue = 0;
 		for (Map.Entry<SportEquipment, Integer> entry : inShopGoods.entrySet()) {
@@ -146,30 +167,5 @@ public class XmlDAOImpl implements IRentShopDAO {
 		}
 		return newValue;
 	}
-
-	public void showRentGoods(RentUnit units) {
-		inRentGoods = units.getUnits();
-		boolean isEmpty = false;
-		for (int i = 0; i < inRentGoods.length; i++) {
-			if (inRentGoods[i] != null) {
-				System.out.println(inRentGoods[i]);
-				isEmpty = true;
-			}
-		}
-		if (isEmpty == false)
-			System.out.println(Messages.RENT_EMPTY);
-	}
-
-	// public Map<SportEquipment, Integer> checkGoodinShop(String goodName, Shop
-	// goods) {
-	// inShopGoods = goods.getGood();
-	// Map<SportEquipment, Integer> goodIn = new HashMap();
-	// for (Map.Entry<SportEquipment, Integer> entry : inShopGoods.entrySet()) {
-	// if (entry.getKey().getTitle().equals(goodName)) {
-	// goodIn.put(entry.getKey(), entry.getValue());
-	// }
-	// }
-	// return goodIn;
-	// }
 
 }

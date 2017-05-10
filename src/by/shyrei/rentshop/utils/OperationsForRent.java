@@ -1,11 +1,24 @@
 package by.shyrei.rentshop.utils;
 
+/**
+ * Enum for rent operation.
+ * 
+ * @author Shyrei Uladzimir
+ * 
+ */
 public enum OperationsForRent {
-ADD_GOOD, RETURN_GOOD, FIND_GOOD, MY_GOOD, ALL_GOOD, RETURN;
-	
-	public static OperationsForRent rentOperation (String s) throws MyExceptions {
-		
-		switch (s) {
+	ADD_GOOD, RETURN_GOOD, FIND_GOOD, MY_GOOD, ALL_GOOD, RETURN;
+	/**
+	 * 
+	 * @param userInput
+	 *            User input string
+	 * @return Return enum
+	 * @throws UnknownOperationException
+	 *             Handles invalid user input
+	 */
+	public static OperationsForRent rentOperation(String userInput) throws UnknownOperationException {
+
+		switch (userInput) {
 		case "1":
 			return ADD_GOOD;
 		case "2":
@@ -15,11 +28,11 @@ ADD_GOOD, RETURN_GOOD, FIND_GOOD, MY_GOOD, ALL_GOOD, RETURN;
 		case "4":
 			return MY_GOOD;
 		case "5":
-			return ALL_GOOD;		
+			return ALL_GOOD;
 		case "0":
-			return RETURN;			
+			return RETURN;
 		default:
-			throw new MyExceptions(s);
-		}		
+			throw new UnknownOperationException(userInput);
+		}
 	}
 }

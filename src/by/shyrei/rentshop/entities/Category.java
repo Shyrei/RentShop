@@ -2,10 +2,16 @@ package by.shyrei.rentshop.entities;
 
 import java.io.Serializable;
 
+/**
+ * Contains information about category of sport equipment. It is classic Java
+ * bean class that has only fields, getters and setters methods. Implements
+ * serializable.
+ * 
+ * @author Shyrei Uladzimir
+ * 
+ */
 public class Category implements Serializable {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private String name;
 

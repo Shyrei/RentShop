@@ -3,13 +3,17 @@ package by.shyrei.rentshop.entities;
 import java.io.Serializable;
 import java.util.Arrays;
 
+/**
+ * It is classic Java bean class that has only fields, getters and setters
+ * methods. Implements serializable.
+ * 
+ * @author Shyrei Uladzimir
+ *
+ */
 public class RentUnit implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private SportEquipment[] units;
 
 	public SportEquipment[] getUnits() {

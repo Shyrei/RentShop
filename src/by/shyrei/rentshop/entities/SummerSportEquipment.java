@@ -2,11 +2,15 @@ package by.shyrei.rentshop.entities;
 
 import java.io.Serializable;
 
+/**
+ * This is a class of summer equipment. Parent SportEquipment. Java bean class that has only fields,
+ * getters and setters methods. Implements serializable.
+ * 
+ * @author Shyrei Uladzimir
+ *
+ */
 public class SummerSportEquipment extends SportEquipment implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private Category category;
 	private String title;

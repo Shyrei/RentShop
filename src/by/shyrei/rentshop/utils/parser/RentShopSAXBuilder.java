@@ -13,10 +13,30 @@ import org.xml.sax.helpers.XMLReaderFactory;
 
 import by.shyrei.rentshop.entities.SportEquipment;
 
+/**
+ * Class is designed to launch the SAX-parser.
+ * 
+ * @author Shyrei Uladzimir
+ * 
+ */
 public class RentShopSAXBuilder {
 
 	private Map<SportEquipment, Integer> goods;
 
+	/**
+	 * Launches the SAX-parser using factory and places parsed objects of
+	 * RentShop type into a collection.
+	 * 
+	 * @param fileName
+	 *            The file from which it will be read
+	 * @return Instance of class Shop
+	 * @throws SAXException
+	 *             Processes and passes on an SAXException
+	 * @throws IOException
+	 *             Processes and passes on an IOException
+	 * @throws ParserConfigurationException
+	 *             Processes and passes on an ParserConfigurationException
+	 */
 	public Map<SportEquipment, Integer> buildGoods(String fileName)
 			throws SAXException, IOException, ParserConfigurationException {
 

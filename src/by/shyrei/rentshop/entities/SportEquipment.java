@@ -2,10 +2,15 @@ package by.shyrei.rentshop.entities;
 
 import java.io.Serializable;
 
+/**
+ * This is an abstract class of sports equipment. Heirs of this class winter and
+ * summer equipment. Implements serializable.
+ * 
+ * @author Shyrei Uladzimir
+ *
+ */
 public abstract class SportEquipment implements Serializable {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private Category category;
 	private String title;

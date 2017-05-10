@@ -13,6 +13,12 @@ import by.shyrei.rentshop.entities.SportEquipment;
 import by.shyrei.rentshop.entities.SummerSportEquipment;
 import by.shyrei.rentshop.entities.WinterSportEquipment;
 
+/**
+ * The class provides methods allowing to parse the document using SAX.
+ * 
+ * @author Shyrei Uladzimir
+ * 
+ */
 public class SAXRentShopDataParser extends DefaultHandler {
 
 	private Category category;
@@ -27,9 +33,15 @@ public class SAXRentShopDataParser extends DefaultHandler {
 	private boolean inPrice;
 	private boolean inSum;
 
-	public void buildRentShops (String fileName) {
+	public Map<SportEquipment, Integer> getRentGoods() {
+		return goods;
 	}
 
+	/**
+	 * Parses the content of an element setting the fields of a sportEquipment
+	 * object with parameters obtained from the xml file.
+	 * 
+	 */
 	@Override
 	public void characters(char[] ch, int start, int end) {
 		String s = new String(ch, start, end);
@@ -71,14 +83,10 @@ public class SAXRentShopDataParser extends DefaultHandler {
 
 	/**
 	 * Takes action when the parser finishes processing the element. Adds the
-	 * initialized voucher object with info obtained from the parsed document
-	 * into a collection
+	 * initialized SportEquipment object with info obtained from the parsed
+	 * document into a collection
 	 * 
-	 * @param uri
-	 * @param localName
-	 * @param qName
 	 */
-
 	@Override
 	public void endElement(String uri, String localName, String qName) {
 		if (qName.equals("winterSportEquipment")) {
@@ -92,20 +100,12 @@ public class SAXRentShopDataParser extends DefaultHandler {
 		}
 	}
 
-	public Map<SportEquipment, Integer> getRentGoods() {
-		return goods;
-	}
-
 	/**
 	 * Takes action when the parser comes across the new element
 	 * 
-	 * @param uri
-	 * @param localName
-	 * @param qName
-	 * @param atts
 	 * @throws SAXException
+	 *             SaxException
 	 */
-
 	public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
 
 		switch (qName) {
@@ -126,7 +126,7 @@ public class SAXRentShopDataParser extends DefaultHandler {
 			break;
 		case "price":
 			inPrice = true;
-			break;		
+			break;
 		case "sum":
 			inSum = true;
 			break;
@@ -135,20 +135,7 @@ public class SAXRentShopDataParser extends DefaultHandler {
 
 	@Override
 	public void warning(SAXParseException e) throws SAXException {
-		// TODO Auto-generated method stub
 		super.warning(e);
-	}
-
-	@Override
-	public void error(SAXParseException e) throws SAXException {
-		// TODO Auto-generated method stub
-		super.error(e);
-	}
-
-	@Override
-	public void fatalError(SAXParseException e) throws SAXException {
-		// TODO Auto-generated method stub
-		super.fatalError(e);
 	}
 
 }

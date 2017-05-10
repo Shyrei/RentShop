@@ -9,32 +9,39 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.xml.sax.SAXException;
-
 import by.shyrei.rentshop.dao.impl.XmlDAOImpl;
 import by.shyrei.rentshop.entities.RentUnit;
 import by.shyrei.rentshop.entities.Shop;
 import by.shyrei.rentshop.entities.SportEquipment;
+import by.shyrei.rentshop.utils.DAOException;
 import by.shyrei.rentshop.utils.Messages;
-import by.shyrei.rentshop.utils.MyExceptions;
 import by.shyrei.rentshop.utils.OperationsForMenu;
 import by.shyrei.rentshop.utils.OperationsForRent;
+import by.shyrei.rentshop.utils.UnknownOperationException;
 
+/**
+ * This class for communicating with the user using the console. User can
+ * initialize the store, read / write data, rent goods, return goods, receive
+ * reports.
+ * 
+ * @author Shyrei Uladzimir
+ *
+ */
 public class Operator {
 
 	private boolean runProgram;
 	private boolean rentWork;
 	private boolean initShop;
 	private BufferedReader reader;
-	XmlDAOImpl operator = new XmlDAOImpl();
+	private XmlDAOImpl operator = new XmlDAOImpl();
 
 	RentUnit units = new RentUnit();
 	SportEquipment[] inRentGoods = new SportEquipment[3];
 	Shop goods;
 
+	/**
+	 * Constructor an instance of Operator
+	 */
 	public Operator() {
 		runProgram = false;
 		rentWork = false;
@@ -47,12 +54,10 @@ public class Operator {
 	public void runingProgram() {
 		runProgram = true;
 		reader = new BufferedReader(new InputStreamReader(System.in));
-		do {
-			while (runProgram) {
-				menuWork();
-			}
-		} while (runProgram);
 
+		while (runProgram) {
+			menuWork();
+		}
 		try {
 			reader.close();
 		} catch (IOException e) {
@@ -63,6 +68,9 @@ public class Operator {
 	/**
 	 * The main menu of the program. We can init shop,
 	 * Serialization/Deserializationg data.
+	 * 
+	 * @see Operator writeConfigurationToFile()
+	 * @see readConfigurationFromFile
 	 * 
 	 */
 	protected void menuWork() {
@@ -103,7 +111,7 @@ public class Operator {
 				runProgram = false;
 				rentWork = false;
 			}
-		} catch (MyExceptions e) {
+		} catch (UnknownOperationException e) {
 			System.out.println(e.getMessage());
 		} catch (FileNotFoundException e) {
 			System.out.println(Messages.FILE_NOT_FOUND);
@@ -113,38 +121,9 @@ public class Operator {
 		} catch (IOException e) {
 			System.out.println(Messages.IO_EXCEPTION);
 			System.out.println(e.getMessage());
-		} catch (SAXException e) {
-			System.out.println(Messages.SAX_EXCEPTION);
-			System.out.println(e.getMessage());
-		} catch (ParserConfigurationException e) {
-			System.out.println(Messages.PARSER_CONFIG_EXCEPTION);
+		} catch (DAOException e) {
 			System.out.println(e.getMessage());
 		}
-	}
-
-	/**
-	 * Method for Serialization data to a file.
-	 */
-	private void writeConfigurationToFile(File file) throws FileNotFoundException, IOException {
-		ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(file));
-		stream.writeObject(goods);
-		stream.writeObject(units);
-		stream.close();
-		System.out.println(Messages.FILE_SAVE);
-
-	}
-
-	/**
-	 * Method for Deserialization data from a file.
-	 */
-	private void readConfigurationFromFile(File file)
-			throws FileNotFoundException, IOException, ClassNotFoundException {
-		ObjectInputStream stream = new ObjectInputStream(new FileInputStream(file));
-		goods = (Shop) stream.readObject();
-		units = (RentUnit) stream.readObject();
-		stream.close();
-		System.out.println(Messages.FILE_LOAD);
-
 	}
 
 	/**
@@ -182,7 +161,7 @@ public class Operator {
 			case RETURN:
 				rentWork = false;
 			}
-		} catch (MyExceptions ex) {
+		} catch (UnknownOperationException ex) {
 			System.out.println(ex.getMessage());
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -191,10 +170,35 @@ public class Operator {
 	}
 
 	/**
+	 * Method for Serialization data to a file.
+	 */
+	private void writeConfigurationToFile(File file) throws FileNotFoundException, IOException {
+		ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(file));
+		stream.writeObject(goods);
+		stream.writeObject(units);
+		stream.close();
+		System.out.println(Messages.FILE_SAVE);
+
+	}
+
+	/**
+	 * Method for Deserialization data from a file.
+	 */
+	private void readConfigurationFromFile(File file)
+			throws FileNotFoundException, IOException, ClassNotFoundException {
+		ObjectInputStream stream = new ObjectInputStream(new FileInputStream(file));
+		goods = (Shop) stream.readObject();
+		units = (RentUnit) stream.readObject();
+		stream.close();
+		System.out.println(Messages.FILE_LOAD);
+
+	}
+
+	/**
 	 * Instructions for displaying for main menu before initializing the shop.
 	 * 
 	 */
-	protected void initList() {
+	private void initList() {
 		StringBuilder builder = new StringBuilder();
 		builder.append(Messages.SPACE).append(Messages.INIT_SHOP).append(Messages.LOAD).append(Messages.SAVE)
 				.append(Messages.EXIT_FROM_PROGRAM).append(Messages.SPACE);
@@ -205,9 +209,9 @@ public class Operator {
 	 * Instructions for displaying for main menu after initializing the shop.
 	 * 
 	 */
-	protected void menuList() {
+	private void menuList() {
 		StringBuilder builder = new StringBuilder();
-		builder.append(Messages.SPACE).append(Messages.SHOW_GOODS_IN_RENT).append(Messages.LOAD).append(Messages.SAVE)
+		builder.append(Messages.SPACE).append(Messages.LOAD).append(Messages.SAVE).append(Messages.SHOW_GOODS_IN_RENT)
 				.append(Messages.EXIT_FROM_PROGRAM).append(Messages.SPACE);
 		System.out.println(builder.toString());
 	}
@@ -216,7 +220,7 @@ public class Operator {
 	 * Instructions for displaying for Rent menu.
 	 * 
 	 */
-	protected void rentList() {
+	private void rentList() {
 		StringBuilder builder = new StringBuilder();
 		builder.append(Messages.SPACE).append(Messages.ADD_GOOD_TO_RENT).append(Messages.RETURN_GOOD)
 				.append(Messages.FIND_GOOD).append(Messages.SHOW_MY_GOODS).append(Messages.SHOW_FREE_GOODS)
