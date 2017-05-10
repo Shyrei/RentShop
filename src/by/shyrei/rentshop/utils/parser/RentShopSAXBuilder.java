@@ -15,7 +15,7 @@ import by.shyrei.rentshop.entities.SportEquipment;
 
 public class RentShopSAXBuilder {
 
-	public Map<SportEquipment, Integer> goods;
+	private Map<SportEquipment, Integer> goods;
 
 	public Map<SportEquipment, Integer> buildGoods(String fileName)
 			throws SAXException, IOException, ParserConfigurationException {

@@ -2,7 +2,8 @@ package by.shyrei.rentshop.entities;
 
 import java.io.Serializable;
 
-public abstract class SportEquipment implements Serializable {
+public class WinterSportEquipment extends SportEquipment implements Serializable {
+
 	/**
 	 * 
 	 */
@@ -11,11 +12,11 @@ public abstract class SportEquipment implements Serializable {
 	private String title;
 	private int price;
 
-	public SportEquipment() {
+	public WinterSportEquipment() {
 		super();
 	}
 
-	public SportEquipment(Category category, String title, int price) {
+	public WinterSportEquipment(Category category, String title, int price) {
 		super();
 		this.category = category;
 		this.title = title;
@@ -49,7 +50,7 @@ public abstract class SportEquipment implements Serializable {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
+		int result = super.hashCode();
 		result = prime * result + ((category == null) ? 0 : category.hashCode());
 		result = prime * result + price;
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
@@ -60,11 +61,11 @@ public abstract class SportEquipment implements Serializable {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		SportEquipment other = (SportEquipment) obj;
+		WinterSportEquipment other = (WinterSportEquipment) obj;
 		if (category == null) {
 			if (other.category != null)
 				return false;
@@ -82,6 +83,7 @@ public abstract class SportEquipment implements Serializable {
 
 	@Override
 	public String toString() {
-		return "SportEquipment [category=" + category + ", title=" + title + ", price=" + price + "]";
+		return "WinterSportEquipment [category=" + category + ", title=" + title + ", price=" + price + "]";
 	}
+
 }

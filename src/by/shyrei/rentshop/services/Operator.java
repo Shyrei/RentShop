@@ -52,7 +52,7 @@ public class Operator {
 				menuWork();
 			}
 		} while (runProgram);
-		
+
 		try {
 			reader.close();
 		} catch (IOException e) {
@@ -116,7 +116,7 @@ public class Operator {
 		} catch (SAXException e) {
 			System.out.println(Messages.SAX_EXCEPTION);
 			System.out.println(e.getMessage());
-		} catch (ParserConfigurationException e) {			
+		} catch (ParserConfigurationException e) {
 			System.out.println(Messages.PARSER_CONFIG_EXCEPTION);
 			System.out.println(e.getMessage());
 		}
@@ -188,9 +188,6 @@ public class Operator {
 			e.printStackTrace();
 			System.out.println(Messages.IO_EXCEPTION);
 		}
-//		} catch (NullPointerException ex) {
-//			System.out.println(Messages.GOODS_EMPTY);
-//		}
 	}
 
 	/**
@@ -210,8 +207,8 @@ public class Operator {
 	 */
 	protected void menuList() {
 		StringBuilder builder = new StringBuilder();
-		builder.append(Messages.SPACE).append(Messages.SHOW_GOODS_IN_RENT)
-				.append(Messages.LOAD).append(Messages.SAVE).append(Messages.EXIT_FROM_PROGRAM).append(Messages.SPACE);
+		builder.append(Messages.SPACE).append(Messages.SHOW_GOODS_IN_RENT).append(Messages.LOAD).append(Messages.SAVE)
+				.append(Messages.EXIT_FROM_PROGRAM).append(Messages.SPACE);
 		System.out.println(builder.toString());
 	}
 

@@ -2,7 +2,8 @@ package by.shyrei.rentshop.entities;
 
 import java.io.Serializable;
 
-public abstract class SportEquipment implements Serializable {
+public class SummerSportEquipment extends SportEquipment implements Serializable {
+
 	/**
 	 * 
 	 */
@@ -11,11 +12,11 @@ public abstract class SportEquipment implements Serializable {
 	private String title;
 	private int price;
 
-	public SportEquipment() {
+	public SummerSportEquipment() {
 		super();
 	}
 
-	public SportEquipment(Category category, String title, int price) {
+	public SummerSportEquipment(Category category, String title, int price) {
 		super();
 		this.category = category;
 		this.title = title;
@@ -64,7 +65,7 @@ public abstract class SportEquipment implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		SportEquipment other = (SportEquipment) obj;
+		SummerSportEquipment other = (SummerSportEquipment) obj;
 		if (category == null) {
 			if (other.category != null)
 				return false;
@@ -82,6 +83,7 @@ public abstract class SportEquipment implements Serializable {
 
 	@Override
 	public String toString() {
-		return "SportEquipment [category=" + category + ", title=" + title + ", price=" + price + "]";
+		return "SummerSportEquipment [category=" + category + ", title=" + title + ", price=" + price + "]";
 	}
+
 }

@@ -28,5 +28,11 @@ public class Messages {
 	public static final String LIMIT_GOODS = "Вы можете взять в прокат только 3-и товара.\n";
 	public static final String EXIT_PROGRAM = "Программа завершена успешно.\n";
 	public static final String GOODS_EMPTY = "Список товаров пуст. Инициализируйте магазин.\n";
+	public static final String RENT_EMPTY = "Список ваших товаров пуст.\n";
+	public static final String GOOD_IS_NOT_IN_SHOP = "Такого товара нету в магазине.\n";
+	public static final String GOOD_IS_NOT_RENT = "Такого товара нету в аренде.\n";
+	public static final String GOOD_ADDED = "Товар успешно добавлен.\n";
+	public static final String GOOD_RETURN = "Товар успешно возвращен.\n";
+	
 
 }
