@@ -112,7 +112,6 @@ public class Operator {
 				System.out.print(Messages.ENTER_FILE_NAME);
 				File fileNameSave = new File(reader.readLine());
 				writeConfigurationToFile(fileNameSave);
-				//initShop = false;
 				break;
 			case EXIT:
 				runProgram = false;
