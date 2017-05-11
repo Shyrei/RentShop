@@ -3,24 +3,40 @@
 	<xs:element name="shop">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="winterSportEquipment" minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="winterSportEquipment" minOccurs="0"
+					maxOccurs="unbounded">
 					<xs:complexType>
 						<xs:sequence>
 							<xs:element name="category" type="xs:string" />
 							<xs:element name="title" type="xs:string" />
-							<xs:element name="price" type="xs:integer" />
+							<xs:element name="price">
+								<xs:simpleType>
+									<xs:restriction base="xs:integer">
+										<xs:minInclusive value="1" />
+										<xs:maxInclusive value="1000" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
 							<xs:element name="sum" type="xs:integer" />
-						</xs:sequence>						
+						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="summerSportEquipment" minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="summerSportEquipment" minOccurs="0"
+					maxOccurs="unbounded">
 					<xs:complexType>
 						<xs:sequence>
 							<xs:element name="category" type="xs:string" />
 							<xs:element name="title" type="xs:string" />
-							<xs:element name="price" type="xs:integer" />
+							<xs:element name="price">
+								<xs:simpleType>
+									<xs:restriction base="xs:integer">
+										<xs:minInclusive value="1" />
+										<xs:maxInclusive value="1000" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
 							<xs:element name="sum" type="xs:integer" />
-						</xs:sequence>						
+						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
 			</xs:sequence>

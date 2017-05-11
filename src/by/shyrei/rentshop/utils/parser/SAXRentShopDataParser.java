@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import by.shyrei.rentshop.entities.Category;
@@ -132,10 +131,4 @@ public class SAXRentShopDataParser extends DefaultHandler {
 			break;
 		}
 	}
-
-	@Override
-	public void warning(SAXParseException e) throws SAXException {
-		super.warning(e);
-	}
-
 }

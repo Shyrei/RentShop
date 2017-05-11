@@ -87,7 +87,7 @@ public class WinterSportEquipment extends SportEquipment implements Serializable
 
 	@Override
 	public String toString() {
-		return "WinterSportEquipment [category=" + category + ", title=" + title + ", price=" + price + "]";
+		return "Зимние товары - категория: " + category + ";   название товара: " + title + ";    цена товара за сутки: " + price;
 	}
 
 }

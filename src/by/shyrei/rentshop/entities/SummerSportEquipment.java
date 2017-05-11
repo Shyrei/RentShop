@@ -87,7 +87,7 @@ public class SummerSportEquipment extends SportEquipment implements Serializable
 
 	@Override
 	public String toString() {
-		return "SummerSportEquipment [category=" + category + ", title=" + title + ", price=" + price + "]";
+		return "Летние товары - категория: " + category + ";   название товара: " + title + ";   цена товара за сутки: " + price;
 	}
 
 }

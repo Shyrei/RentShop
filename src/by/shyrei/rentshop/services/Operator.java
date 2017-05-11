@@ -28,16 +28,18 @@ import by.shyrei.rentshop.utils.UnknownOperationException;
  *
  */
 public class Operator {
-
+	/**
+	 * To change the maximum number of orders, change the constant MAX_NUMBER_OF_ORDERS
+	 */
+	private static final int MAX_NUMBER_OF_ORDERS = 3;
+	private XmlDAOImpl operator = new XmlDAOImpl();
+	private SportEquipment[] inRentGoods = new SportEquipment[MAX_NUMBER_OF_ORDERS];
+	private RentUnit units = new RentUnit();
+	private Shop goods;
+	private BufferedReader reader;
 	private boolean runProgram;
 	private boolean rentWork;
 	private boolean initShop;
-	private BufferedReader reader;
-	private XmlDAOImpl operator = new XmlDAOImpl();
-
-	RentUnit units = new RentUnit();
-	SportEquipment[] inRentGoods = new SportEquipment[3];
-	Shop goods;
 
 	/**
 	 * Constructor an instance of Operator
@@ -101,22 +103,27 @@ public class Operator {
 				System.out.print(Messages.ENTER_FILE_NAME);
 				File fileNameLoad = new File(reader.readLine());
 				readConfigurationFromFile(fileNameLoad);
+				initShop = true;
+				rentWork = true;
+				while (rentWork)
+					rentWork();
 				break;
 			case SAVE:
 				System.out.print(Messages.ENTER_FILE_NAME);
 				File fileNameSave = new File(reader.readLine());
 				writeConfigurationToFile(fileNameSave);
+				//initShop = false;
 				break;
 			case EXIT:
 				runProgram = false;
 				rentWork = false;
-			}
-		} catch (UnknownOperationException e) {
-			System.out.println(e.getMessage());
+			}		
 		} catch (FileNotFoundException e) {
 			System.out.println(Messages.FILE_NOT_FOUND);
 			System.out.println(e.getMessage());
 		} catch (ClassNotFoundException e) {
+			System.out.println(e.getMessage());
+		} catch (UnknownOperationException e) {
 			System.out.println(e.getMessage());
 		} catch (IOException e) {
 			System.out.println(Messages.IO_EXCEPTION);
@@ -138,19 +145,19 @@ public class Operator {
 			OperationsForRent operationClient = OperationsForRent.rentOperation(userInput);
 			switch (operationClient) {
 			case ADD_GOOD:
-				System.out.println("Введите имя товара:");
+				System.out.println(Messages.INPUT_GOOD_NAME);
 				String goodName = reader.readLine();
 				operator.addGoodToRent(goodName, units, goods);
 				break;
 			case RETURN_GOOD:
-				System.out.println("Введите имя товара:");
+				System.out.println(Messages.INPUT_GOOD_NAME);
 				String goodNameReturn = reader.readLine();
 				operator.returnGoodToShop(goodNameReturn, units, goods);
 				break;
 			case FIND_GOOD:
-				System.out.println("Введите имя товара:");
+				System.out.println(Messages.INPUT_GOOD_NAME);
 				String goodNameFind = reader.readLine();
-				operator.findGood(goodNameFind, goods);
+				operator.findAndPrintGood(goodNameFind, goods);
 				break;
 			case MY_GOOD:
 				operator.showRentGoods(units);
